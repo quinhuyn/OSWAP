@@ -13,7 +13,7 @@
     text-decoration:underline;
 }
 #header nav .navbar-brand{
-    font-size:50px;
+    font-size:40px;
 
 }
 .active{
@@ -242,6 +242,8 @@ ul{
 .DOM_XSS{
     padding-top:70px ;
     padding-bottom:15px;
+    background-color: lightblue;
+
 }
 .DOM_XSS .step{
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
@@ -391,7 +393,7 @@ ul{
 .scollview{
     overflow: scroll;
     height: 665px;
-    background-color: white;
+    background-color: lightblue;
 }
 
         /* end content*/
