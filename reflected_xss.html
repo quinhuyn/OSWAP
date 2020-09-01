@@ -69,6 +69,8 @@
             <h1 id="inst2" style="display: none;">Phân tích lỗ hổng</h1>
             <h1 id="inst3" style="display: none;">Biện pháp ngăn chặn</h1>
           </div>
+        </div>
+        <div class="row">
           <div class="action" style="display: none;">
             <div class="col-sm-4">
               <div class="tutorial">
@@ -106,12 +108,15 @@
                 </div>
                 <div class="step seven">
                   <h3>Bước 7</h3>
-                  <p>Phía<strong> Attacker</strong> lấy <em>Cookie</em> của <em>User</em> đưa vào file <em>cookie.txt</em></p>
+                  <p>Phía<strong> Attacker</strong> lấy <em>Cookie</em> của <em>User</em> đưa vào file <em>cookie.txt</em><br>
+                    Next để tiếp tục phân tích lỗ hổng.
+                  </p>
+
                 </div>
               </div>
                <ul class="nav nav-pills">
                 <li><button class="back">Back</button></li>
-                <li><button class="next">Next</button></li>
+                <li><button class="next" id="switch_vulnerability">Next</button></li>
               </ul>
             </div>
             <div class="col-sm-8">
@@ -180,15 +185,27 @@ if(isset($_GET["cookie"])){
                         <div class="load-icon"></div>
                       </div>
                     </div>
-                    <div class="frame">
+                    <div class="frame" >
                       <div class="form">
-                        <h3>Seach Tool</h3><br>
+                        <h3>Search Tool</h3><br>
                         <div class="input-group">
                           <input type="text" name="domain" class="domain form-control">
                           <span class="input-group-addon">
                             <i class="fa fa-search"></i>
                           </span>
                       </div>
+                      </div>
+                    </div>
+                    <div class="frame_after_search">
+                      <div class="form_after_search">
+                        <h3>Search Tool</h3><br>
+                        <div class="input-group">
+                          <input type="text" name="domain" value="" class="domain form-control">
+                          <span class="input-group-addon">
+                            <i class="fa fa-search"></i>
+                          </span>
+                        </div>
+                        <p class="keyword">Search results for "keyword":....</p>
                       </div>
                     </div>
                   </div>
@@ -233,32 +250,37 @@ if(isset($_GET["cookie"])){
               </div>
             </div>
           </div>
+        </div>
+        <div class="row">
           <div class="vulnerability" style="display: none;">
             <div class="col-sm-4">
               <div class="tutorial">
                 <div class="step one">
                   <h3>Bước 1</h3>
-                  <p>Nhập bất kỳ kí tự vào thanh tìm kiếm. Kí tự nhập vào sẽ hiển thị trên thanh Url</p>
+                  <p>Nhập bất kỳ kí tự vào thanh Search. Kí tự nhập vào sẽ hiển thị trên thanh Url</p>
                 </div>
                 <div class="step two">
                   <h3>Bước 2</h3>
-                  <p>Nhập tuần tự các đoạn mã Script sau:
-                    <strong>&lt;script&gt;alert("hello")&lt;/script&gt;</strong>
+                  <p>Nhập đoạn mã Script vào thanh Search:<br>
                     <strong>&lt;script&gt;alert(document.cookie)&lt;/script&gt;</strong><br>
-                    Đoạn Script thứ nhất sẽ hiển thị 1 khung Pop up với "hello" <br>
-                    Đoạn Script thứ hai sẽ hiển thị 1 khung Pop up với "Cookie máy của bạn"
+                    Kết quả sẽ hiển thị 1 khung Pop up với "Cookie máy của bạn"<br>
+                    Dễ thấy lỗ hổng ở đây nằm ở giá trị input là "search"
                   </p>
                 </div>
                 <div class="step three">
-                  <h3>Mô phỏng tấn công Lorem ipsum dolor sit amet, consectetur adipis</h3>
+                  <h3>Bước 3</h3>
+                  <p>
+                    Từ code chức năng search của Web này có thể thấy giá trị input là "search" chỉ kiểm tra sự tồn tại của giá trị đầu vào và xuất ra kết quả.<br>
+                    Từ đây <strong>Attacker</strong> có thể lợi dụng lỗ hổng này để chèn những đoạn mã script để lấy Cookie của <strong>User</strong><br>
+                    Tiếp tục sẽ đưa ra biện pháp để ngăn chặn lỗ hổng này.
+                  </p>                
                 </div>
-                <div class="step four">
-                  <h3>Mô phỏng tấn công Lorem ipsum dolor sit amet, consectetur adipis</h3>
-                </div>
-                <div class="step five">
-                  <h3>Mô phỏng tấn công Lorem ipsum dolor sit amet, consectetur adipis</h3>
-                </div>
+                 
               </div>
+              <ul class="nav nav-pills">
+                <li><button class="back">Back</button></li>
+                <li><button class="next">Next</button></li>
+              </ul>
             </div>
             <div class="col-sm-8">
               <div class="interactive">
@@ -271,19 +293,20 @@ if(isset($_GET["cookie"])){
                         <span class="button green"> </span>
                       </span>
                       <div class="url">
-                        <input class="address" value="search-o-bot.com">
+                        <input class="address" value="social.com">
                         <div class="load-icon"></div>
                       </div>
                     </div>
                     <div class="step one">
                       <div class="frame">
                         <div class="form">
+                          <h3>Search Tool</h3><br>
                           <div class="input-group">
                             <input type="text" name="domain" class="domain form-control">
                             <span class="input-group-addon">
                               <i class="fa fa-search"></i>
                             </span>
-                          </div>
+                        </div>
                         </div>
                       </div>
                     </div>
@@ -297,28 +320,25 @@ if(isset($_GET["cookie"])){
                         <span class="button orange"> </span>
                         <span class="button green"> </span>
                       </span>
-                      <div class="url">
-                        <input class="address" value="search-o-bot.com">
-                        <div class="load-icon"></div>
-                      </div>
+                      <p>index.php</p>
                     </div>
-                    <div class="step one">
-                      <div class="frame">
-                        <div class="form">
-                          <div class="input-group">
-                            <input type="text" name="domain" class="domain form-control">
-                            <span class="input-group-addon">
-                              <i class="fa fa-search"></i>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
+                    
+                    <div class="frame">
+                      <textarea name="codereview" id="codereview" class="domain form-control">&lt;?php
+if($_GET[ 'search' ] != NULL ) //Kiểm tra sự tồn tại giá trị đầu vào 
+{ 
+    // In ra màn hình kết quả tìm kiếm
+    echo 'Search results for "' . $_GET[ 'search' ] . '": ...'; 
+} 
+?&gt;</textarea>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <div class="row">
           <div class="prevent"></div>
         </div>
       </div>

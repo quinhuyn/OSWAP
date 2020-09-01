@@ -330,7 +330,7 @@
             height: 16px;
             display: none;
         }
-        .browser .frame {
+        .browser .frame,.frame_after_search {
             text-align: center;
             background: #eef;
             font-family: verdana, arial, helvetica, sans-serif;
@@ -338,6 +338,10 @@
             min-height: 600px;
         
         }
+        .frame_after_search{
+            display: none;
+        }
+        
         .frame textarea {
             background: white;
             font-family: verdana, arial, helvetica, sans-serif;
@@ -351,6 +355,16 @@
             top: 200px;
             width: 100%;
             padding: 10px;
+        }
+        .browser .frame_after_search .form_after_search {
+            position: absolute;
+            width: 100%;
+            padding: 10px;
+        }
+        .frame_after_search .form_after_search p.keyword {
+            top: 144px;
+            font-size: larger;
+            position: absolute;
         }
         .input-group {
             position: relative;
@@ -383,7 +397,7 @@
             border: 1px solid rgba(0,0,0,0.15);
             border-radius: 0.25rem;
         }
-        .action .tutorial .step{
+         .tutorial .step{
             font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
             border:1px solid white;
             background:#eceeef;
@@ -391,7 +405,7 @@
             padding:10px 10px;
             display: none;
         }
-        .action .interactive .step{
+         .interactive .step{
             display: none;
         }
 
@@ -418,8 +432,7 @@
             text-align: center;
             text-decoration: none;
             font-size: 16px;
-            margin: 5px 54px;
-            margin: 5px 47%;
+            margin: 5px 37%;
         }
         .DOM_XSS .back {
             background-color: rgb(200, 200, 200);
@@ -431,8 +444,8 @@
         .DOM_XSS .back:hover {
             text-decoration:underline;
         }
-        .action button.next {position: relative;;left: 147px;}
-        .action .browser .step{
+         button.next {position: relative;;left: 147px;}
+         .browser .step{
             display: none;
         }
 

